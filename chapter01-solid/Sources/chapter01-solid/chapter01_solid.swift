@@ -42,5 +42,30 @@ public struct chapter01_solid {
         for p in bf.fileter(products, AndSpecification(first: ColorSpecification(color: .blue), second: SizeSpecification(size: .large))) {
             print(" - \(p.name) is blue and large.")
         }
+        
+        // - MARK: Liskov Substitution Principle
+        let rc = Rectangle()
+        setAndMeasure(rc)
+        
+        let sq = Square()
+        setAndMeasure(sq)
+        
+        // - MARK: Dependency Inversion Principle
+        let parent = Person(name: "John")
+        let child1 = Person(name: "Chris")
+        let child2 = Person(name: "Matt")
+        
+        let relationships = Relationships()
+        relationships.addParentAndChild(parent, child1)
+        relationships.addParentAndChild(parent, child2)
+        
+        let _ = Research(relationships)
     }
+    
+    static func setAndMeasure(_ rc: Rectangle) {
+        rc.width = 3
+        rc.height = 4
+        print("Expected area to be 12 but got \(rc.area)")
+    }
+    
 }
